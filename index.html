@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leap Year and Horary Signs</title>
+    <style>
+        body {
+            background-color: #0aef7c;
+            align-items: center;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Leap Year and Horary Signs</h1>
+    
+    <form>
+        <label for="year">Enter a year:</label>
+        <input type="text" id="year" name="year" placeholder="e.g. 2023">
+        <input type="submit" value="Submit">
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        function checkLeapYear(year) {
+            return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+        }
+
+        function getHorarySign(year) {
+            const horarySigns = [
+                "Monkey",
+                "Cock",
+                "Dog",
+                "Boar",
+                "Rat",
+                "Ox",
+                "Tiger",
+                "Hare",
+                "Dragon",
+                "Serpent",
+                "Horse",
+                "Sheep"
+            ];
+
+            return horarySigns[year % 12];
+        }
+
+        function displayResult(year) {
+            const resultDiv = document.getElementById("result");
+            const isLeapYear = checkLeapYear(year);
+            const horarySign = getHorarySign(year);
+
+            resultDiv.innerHTML = `
+                <p>Year: ${year}</p>
+                <p>${isLeapYear ? "Leap Year" : "Common Year"}</p>
+                <p>Horary Sign: ${horarySign}</p>
+                <img src="${horarySign.toLowerCase()}.jpg" alt="${horarySign}">
+            `;
+        }
+
+        document.querySelector("form").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const yearInput = document.getElementById("year");
+            const year = parseInt(yearInput.value);
+            displayResult(year);
+            yearInput.value = "";
+        });
+    </script>
+</body>
+</html>
